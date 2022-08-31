@@ -1,0 +1,454 @@
+<!--
+<RTCMultiConnection>
+The MIT License
+Copyright (c) 2014-2018 Muaz Khan <muazkh@gmail.com>
+
+Permission is hereby granted, free of charge, to any person obtaining a copy of this software and associated documentation files (the "Software"), to deal in the Software without restriction, including without limitation the rights to use, copy, modify, merge, publish, distribute, sublicense, and/or sell copies of the Software, and to permit persons to whom the Software is furnished to do so, subject to the following conditions:
+
+The above copyright notice and this permission notice shall be included in all copies or substantial portions of the Software.
+
+THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.    
+
+<Howler>
+The MIT License
+Copyright (c) 2013-2019 James Simpson and GoldFire Studios, Inc.
+
+Permission is hereby granted, free of charge, to any person obtaining a copy of this software and associated documentation files (the "Software"), to deal in the Software without restriction, including without limitation the rights to use, copy, modify, merge, publish, distribute, sublicense, and/or sell copies of the Software, and to permit persons to whom the Software is furnished to do so, subject to the following conditions:
+
+The above copyright notice and this permission notice shall be included in all copies or substantial portions of the Software.
+
+THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
+
+<Autolinker>
+The MIT License (MIT)
+Copyright (c) 2014 Gregory Jacobs (http://greg-jacobs.com)
+
+Permission is hereby granted, free of charge, to any person obtaining a copy of this software and associated documentation files (the "Software"), to deal in the Software without restriction, including without limitation the rights to use, copy, modify, merge, publish, distribute, sublicense, and/or sell copies of the Software, and to permit persons to whom the Software is furnished to do so, subject to the following conditions:
+
+The above copyright notice and this permission notice shall be included in all copies or substantial portions of the Software.
+
+THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
+-->
+
+<!DOCTYPE html>
+<html>
+
+  <head>
+    <title>TTAALLKK</title>
+    <link rel='stylesheet' href='/stylesheets/style.css' />
+    <link rel='stylesheet' href='/stylesheets/loader.css' />
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="keywords" content="음성대화, 커뮤니티, WEBRTC">
+    <meta name="description" content="음성대화를 통해 다른사람과 대화를 나누고, 커뮤니티 포스팅을 통해 정보를 공유합니다.">
+    <meta name="author" content="wnsvy223@naver.com">
+    <link href="https://fonts.googleapis.com/css?family=Roboto|Varela+Round" rel="stylesheet">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.2.0/css/all.css">
+    <link rel="stylesheet" href="https://code.jquery.com/ui/1.11.0/themes/smoothness/jquery-ui.css"/>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/jquery-toast-plugin/1.3.2/jquery.toast.min.css" />
+
+    <script src="https://code.jquery.com/jquery-3.5.1.js" integrity="sha256-QWo7LDvxbWT2tbbQ97B53yJnYU3WhH/C8ycbRAkjPDc=" crossorigin="anonymous"></script>
+    <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.min.js"></script>
+    <script src="/lib/jquery.ui.touch-punch.js"></script> <!-- 0.2.3버전 CDN의 경우 모바일에서 dragable, sortable이 적용된 요소의 하위요소들 클릭 불가능 이슈. Dave Furfero의 0.4.0버전 로컬 라이브러리 파일로 변경 -->
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-toast-plugin/1.3.2/jquery.toast.min.js"></script> <!-- jquery toast -->
+
+    <!--RTCMultiConnection-->
+    <!--<script src="https://rtcmulticonnection.herokuapp.com/dist/RTCMultiConnection.min.js"></script>-->
+    <!--<script src="https://rtcmulticonnection.herokuapp.com/socket.io/socket.io.js"></script>-->
+    <script src="https://cdn.jsdelivr.net/npm/rtcmulticonnection@3.7.0/dist/RTCMultiConnection.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/socket.io/2.3.0/socket.io.slim.js"></script>
+    <script src="https://webrtchacks.github.io/adapter/adapter-latest.js"></script>
+    <script src="https://cdn.webrtc-experiment.com/FileBufferReader.js"></script> <!--FileBufferReader API--> 
+    <script src="https://cdn.webrtc-experiment.com/hark.js"></script> <!--Voice Activity Detection--> 
+    <script src="https://cdn.jsdelivr.net/npm/detectrtc@1.4.0/DetectRTC.min.js"></script>  <!--DetectRTC-->
+     
+    <!--Howler-->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/howler/2.1.3/howler.js"></script>
+ 
+    <!--summernote css/js-->
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/summernote/0.8.8/summernote.css" rel="stylesheet">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/summernote/0.8.8/summernote.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/summernote/0.8.8/lang/summernote-ko-KR.min.js"></script>
+
+    <!--Moment-->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.29.1/moment.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.29.1/locale/ko.min.js"></script> <!-- moment locale kr-->
+
+    <!--Autolinker-->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/autolinker/3.13.0/Autolinker.min.js"></script>
+
+  </head>
+  
+  <body>
+    <div id="wrapper">
+        <!-- Sidebar -->
+        <div id="sidebar-wrapper">
+            <ul class="sidebar-nav">
+                <li class="sidebar-brand">
+                    <img id="profileUrl" class="img-circle sidebar-profile" src="/images/icon-avatar.png" alt="">
+                </li>
+                <li id="user-tab">
+                    <a id="sidebar-userNickname">Guest</a>
+                </li>
+                <li id="auth-tab" class="side-tab-title">
+                    <a href="#sidebar-signin-menu" data-toggle="collapse" aria-expanded="false" class="side-tab-title-text dropdown-toggle">                  
+                        <span>로그인</span>
+                        <span class="caret"></span>
+                    </a>
+                    <ul class="collapse list-unstyled divide-all" id="sidebar-signin-menu">
+                        <li>
+                            <div class="form-group form-dropdown-input" id="input-id-login">
+                                <input type="email" class="form-control" id="userid" placeholder="아이디(E-mail)"/>
+                            </div>
+                        </li>
+                        <li>
+                            <div class="form-group form-dropdown-input" id="input-password-login"> 
+                                <input type="password" class="form-control" id="userpassword" placeholder="비밀번호"/>
+                            </div>
+                        </li>
+                        <li>
+                            <div class="form-group form-dropdown-input text-center">
+                                <input type="checkbox" name="fancy-checkbox-primary-session" id="fancy-checkbox-primary-session" autocomplete="off" />
+                                <div class="btn-group">
+                                    <label for="fancy-checkbox-primary-session" class="btn btn-info check-box-session">
+                                        <span class="glyphicon glyphicon-ok"></span>
+                                        <span> </span>
+                                    </label>
+                                    <label for="fancy-checkbox-primary-session" class="btn btn-default active check-box-session">
+                                        로그인 유지
+                                    </label>
+                                </div>
+                            </div>
+                        </li>
+                        <li>
+                            <div class="btn-group">
+                                <button type="submit" id="login" class="btn btn-success"><i class="glyphicon glyphicon-ok"></i> 로그인 </button>                                      
+                                <button type="submit" id="signup" class="btn btn-warning"><i class="fas fa-user-plus"></i> 회원가입 </button>
+                            </div>
+                        </li>
+                    </ul>
+                </li>
+                <li id="board-tab" class="side-tab-title">
+                    <a href="#sidebar-board-list" data-toggle="collapse" aria-expanded="false" class="side-tab-title-text dropdown-toggle">
+                        <span>게시판</span>
+                        <span class="caret"></span>
+                    </a>
+                    <ul class="collapse list-unstyled divide-all sidebar-dropdown-list" id="sidebar-board-list">
+                        <li id="sidebar-board-gta">
+                            <a>GTA 게시판</a>
+                        </li>
+                        <li id="sidebar-board-free">
+                            <a>자유 게시판</a>
+                        </li>
+                        <li id="sidebar-board-talk">
+                            <a>톡 게시판</a>
+                        </li>
+                    </ul>
+                </li>
+                
+                <!-- Sidebar Footer -->
+                <footer>
+                    <p class="copyright"></p>
+                    <div class="rounded-social-buttons">
+                        <a class="social-button naver-mail" href="https://mail.naver.com/" target="_blank"><i class="fa fa-envelope"></i></a>
+                        <span class="footer-text">wnsvy223@naver.com</span>
+                    </div>
+                </footer>
+            </ul>
+        </div>
+        <!-- /sidebar-wrapper -->
+
+        <!-- Page Content -->
+        <div id="page-content-wrapper"> 
+            <!-- Navbar -->
+            <nav id="mNavbar" class="navbar navbar-inverse navbar-expand-xl navbar-dark">
+                <div class="navbar-header d-flex col">
+                    <button type="button" id="sidebar-toggle" class="pull-left navbar-toggle collapsed force-visible">
+                        <span class="sr-only">Toggle navigation</span> <!--사이드바 햄버거 아이콘-->
+                        <span class="icon-bar line"></span>
+                        <span class="icon-bar line"></span>
+                        <span class="icon-bar line"></span>
+                        <span id="sidebar-total-badge" class="nav-badge"></span>
+                    </button>
+                    <a class="navbar-brand"><b id="app-title">TTAALLKK<img src='/images/favicon.ico'></b></a>
+                    <button type="button" data-target="#navbarCollapse" data-toggle="collapse" class="navbar-toggle navbar-toggler ml-auto collapsed">
+                        <span class="sr-only">Toggle navigation</span> <!--모바일 화면 햄버거 아이콘-->
+                        <span class="icon-bar"></span>
+                        <span class="icon-bar"></span>
+                        <span class="icon-bar"></span>
+                    </button>
+                </div>
+                <!-- Collection of nav links, forms, and other content for toggling -->
+                <div id="navbarCollapse" class="collapse navbar-collapse justify-content-start">
+                    <!-- Search bar		
+                    <form class="navbar-form form-inline">
+                        <div class="input-group search-box">								
+                            <input type="text" id="search" class="form-control" placeholder="Search here...">
+                            <span class="input-group-addon"><i class="material-icons">&#xE8B6;</i></span>
+                        </div>
+                    </form>
+                    -->
+                    <ul id="header-menu" class="nav navbar-nav navbar-right ml-auto">
+                        <li id="menu-create-room" class="nav-item dropdown on-air-slide-in">
+                            <a href="" data-toggle="dropdown" class="nav-link dropdown-toggle user-action">
+                                <i class="fa fa-door-closed"></i>
+                                <span>방 만들기</span>
+                            </a>
+                            <ul class="dropdown-menu">    
+                                <div class="form-group form-dropdown-input">
+                                    <label class="label-color" for="exampleInputPassword1">닉네임</label> 
+                                    <input type="text" class="form-control text-center" id="id_c" />
+                                </div>                                 
+                                <div class="form-group form-dropdown-input">
+                                    <label class="label-color" for="exampleInputEmail1">제목</label> 
+                                    <input type="email" class="form-control text-center" id="roomname_c"/>
+                                </div>
+                                <div class="form-group form-dropdown-input">
+                                    <label class="label-color" for="exampleInputPassword1">비밀번호</label> 
+                                    <input type="password" class="form-control text-center" id="password_c" />
+                                </div>
+                                <div class="form-group form-dropdown-input">
+                                    <label class="label-color">인원수</label>                          
+                                    <div class="input-group spinner">
+                                        <input value="10" min="1" max="100" type="text" name="count-of-users" class="form-control" id="count-of-users" onkeydown='return onlyNumber(event)' onkeyup='removeChar(event)' style='ime-mode:disabled;'/>
+                                        <div class="input-group-btn-vertical">
+                                            <button class="btn btn-default" type="button"><i class="fa fa-caret-up"></i></button>
+                                            <button class="btn btn-default" type="button"><i class="fa fa-caret-down"></i></button>
+                                        </div>
+                                    </div>
+                                </div>                      
+    
+                                <div class="form-group form-dropdown-input text-center">
+                                    <input type="checkbox" name="fancy-checkbox-primary" id="fancy-checkbox-primary" autocomplete="off" />
+                                    <div class="btn-group">
+                                        <label for="fancy-checkbox-primary" class="btn btn-primary check-box">
+                                            <span class="glyphicon glyphicon-ok"></span>
+                                            <span> </span>
+                                        </label>
+                                        <label for="fancy-checkbox-primary" class="btn btn-default active check-box">
+                                            공개방
+                                        </label>
+                                    </div>
+                                </div>
+    
+                                <div class="form-group form-dropdown-input">
+                                    <button type="submit" id="submitCreate" class="btn btn-primary btn-block"><i class="fa fa-door-closed"></i> 만들기 </button>                                      
+                                </div>
+                            </ul>
+                        </li>
+    
+                        <li id="menu-join-room" class="nav-item dropdown on-air-slide-in">
+                            <a href="" data-toggle="dropdown" class="nav-link dropdown-toggle user-action">
+                                <i class="fa fa-door-open"></i>
+                                <span>방 참가하기</span>
+                            </a>
+                            <ul class="dropdown-menu">
+                                <div class="form-group form-dropdown-input">
+                                    <label class="label-color" for="exampleInputPassword1">닉네임</label> 
+                                    <input type="text" class="form-control text-center" id="id_j" />
+                                </div>                                     
+                                <div class="form-group form-dropdown-input">
+                                    <label class="label-color" for="exampleInputEmail1">제목</label> 
+                                    <input type="email" class="form-control text-center" id="roomname_j"/>
+                                </div>
+                                <div class="form-group form-dropdown-input">
+                                    <label class="label-color" for="exampleInputPassword1">비밀번호</label> 
+                                    <input type="password" class="form-control text-center" id="password_j" />
+                                </div>
+                                
+                                <div class="form-group form-dropdown-input text-center">
+                                    <input type="checkbox" name="fancy-checkbox-primary-join" id="fancy-checkbox-primary-join" autocomplete="off" />
+                                    <div class="btn-group">
+                                        <label for="fancy-checkbox-primary-join" class="btn btn-primary check-box-join">
+                                            <span class="glyphicon glyphicon-ok"></span>
+                                            <span> </span>
+                                        </label>
+                                        <label for="fancy-checkbox-primary-join" class="btn btn-default active check-box-join">
+                                            공개방
+                                        </label>
+                                    </div>
+                                </div>
+    
+                                <div class="form-group form-dropdown-input">
+                                    <button type="submit" id="submitJoin" class="btn btn-primary btn-block"><i class="fa fa-door-open"></i> 참가하기 </button>                                      
+                                </div>
+                            </ul>
+                        </li>
+                    </ul>
+                </div>
+            </nav>    
+            <div id="page-container">
+                <div id="container">          
+                    <!-- Board PreView Area -->     
+                </div>    
+            </div>      
+        </div>
+        <!-- /page-content-wrapper -->
+        
+        <div id="div-user-list" class="container">
+            <!--Talk User List-->
+        </div>
+        
+        <!-- Floating Action Button -->
+        <div class="fab-wrapper">
+            <a id="fab" class="fab">
+                <i class="far fa-comment-dots"></i>
+            </a>
+            <span class="fab-label" id="fab-message-count"></span>
+        </div> 
+    </div>
+           
+    <script>
+        var mNavbar = $("#mNavbar");
+        var offSetY = mNavbar.offset().top;
+        $(document).ready(function(){
+            // 페이지 스크롤 상태에 따라 네비바 상단 고정클래스 변경
+            $(window).scroll(function() {
+                AdjustHeader();
+            });
+            
+            // 드롭다운 메뉴 클릭 시 메뉴 닫히는것 방지(공개방 체크박스 사용위해)
+            $('.dropdown-menu label.check-box').on("click", function(e){
+                e.stopPropagation();
+                var isPublicRoom = $("#fancy-checkbox-primary").prop('checked');                
+                // 공개방 체크 시 비밀번호 입력창 disabled
+                if(isPublicRoom){ 
+                    $("#password_c").attr("disabled", false);         
+                }else{
+                    $("#password_c").attr("disabled", true);                     
+                    $("#password_c").val("");                    
+                }     
+            });
+
+            $('.dropdown-menu label.check-box-join').on("click", function(e){
+                e.stopPropagation();
+                var isPublicRoomJoin = $("#fancy-checkbox-primary-join").prop('checked');
+                if(isPublicRoomJoin){
+                    $("#password_j").attr("disabled", false);
+                }else{
+                    $("#password_j").attr("disabled", true);
+                    $("#password_j").val("");
+                }
+            });
+
+            $('.dropdown-menu label.check-box-session').on("click", function(e){
+                e.stopPropagation();
+            });
+
+            // 인원수 선택 스피너
+            $('.dropdown-menu .spinner .btn:first-of-type').on('click', function(event) {
+                event.stopPropagation();
+                var btn = $(this);
+                var input = btn.closest('.spinner').find('input');
+                if (input.attr('max') == undefined || parseInt(input.val()) < parseInt(input.attr('max'))) {    
+                    input.val(parseInt(input.val(), 10) + 1);
+                } else {
+                    btn.next("disabled", true);
+                }
+            });
+            $('.dropdown-menu .spinner .btn:last-of-type').on('click', function(event) {
+                event.stopPropagation();
+                var btn = $(this);
+                var input = btn.closest('.spinner').find('input');
+                if (input.attr('min') == undefined || parseInt(input.val()) > parseInt(input.attr('min'))) {    
+                    input.val(parseInt(input.val(), 10) - 1);
+                } else {
+                    btn.prev("disabled", true);
+                }
+            });
+
+            // 사이드 바 토글
+            $("#sidebar-toggle").click(function(e) {
+                e.preventDefault();
+                $("#wrapper").toggleClass("toggled"); // 사이드바 영역 토글
+                $(this).toggleClass("is-active"); // 사이드바 호출 햄버거 버튼 토글
+            });
+
+            // popover init
+            $('body').popover({
+                placement: 'bottom',
+                container: '#sidebar-wrapper',
+                html: true,
+                template: '<div class="popover" role="tooltip"><div class="arrow"></div><h3 class="popover-title"></h3><div class="popover-content"></div></div>',
+                selector: '[data-toggle="popover"]', // 동적 요소에도 이벤트 바인딩 가능하도록 옵션 설정
+            }); 
+        });    
+
+        // popover dismiss by clicking outside
+        $(document).on('click', function (e) {
+            $('[data-toggle="popover"],[data-original-title]').each(function () {
+                if (!$(this).is(e.target) && $(this).has(e.target).length === 0 && $('.popover').has(e.target).length === 0) {                
+                    (($(this).popover('hide').data('bs.popover')||{}).inState||{}).click = false  // fix for BS 3.3.6
+                }
+            });
+        });
+
+        // 1보다 작은 값이면 1, 100보다 큰 값이면 100으로 자동 변경.
+        $(document).on("keyup", "input[name^=count-of-users]", function() {
+            var val= $(this).val();
+            if(val.replace(/[0-9]/g, "").length > 0) {
+                $(this).val('1');
+            }
+            if(val < 1) {
+                $(this).val('1');
+            }
+            if(val > 100){
+                $(this).val('100');
+            }
+        });
+
+        // 스크롤 상태에 따라 상단 네비바 fixed로 변경
+        function AdjustHeader(){
+            if($(window).scrollTop() > offSetY){
+                if(!mNavbar.hasClass("navbar-fixed-top")){
+                    mNavbar.addClass("navbar-fixed-top");
+                    $("#container").css({top: 100});
+                }
+            }else{
+                mNavbar.removeClass("navbar-fixed-top");
+                $("#container").css({top: 0});
+            }
+        }
+
+        // 인원수 입력 input box에는 숫자키 입력만 허용
+        function onlyNumber(event){
+            event = event || window.event;
+            var keyID = (event.which) ? event.which : event.keyCode;
+            if ( (keyID >= 48 && keyID <= 57) || (keyID >= 96 && keyID <= 105) || keyID == 8 || keyID == 46 || keyID == 37 || keyID == 39 ) 
+                return;
+            else
+                return false;
+        }
+        // 숫자가 아닌 문자가 입력되면 제거
+        function removeChar(event) {
+            event = event || window.event;
+            var keyID = (event.which) ? event.which : event.keyCode;
+            if ( keyID == 8 || keyID == 46 || keyID == 37 || keyID == 39 ) 
+                return;
+            else
+                event.target.value = event.target.value.replace(/[^0-9]/g, "");
+        }
+    </script>
+
+    <!--Firebase-->
+    <script src="https://www.gstatic.com/firebasejs/7.17.1/firebase-app.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/7.17.1/firebase-auth.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/7.17.1/firebase-database.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/7.17.1/firebase-storage.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/7.17.1/firebase-messaging.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/7.17.1/firebase-analytics.js"></script>
+    <script src="/javascripts/firebase.js"></script>
+
+    <!--Main Page-->
+    <script type="module" src="/javascripts/controller/main.js"></script> 
+    
+    <!-- include modal.ejs document file-->  
+    <% include modal.ejs %>
+  </body>
+
+</html>

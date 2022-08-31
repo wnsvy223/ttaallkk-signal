@@ -1,0 +1,282 @@
+<!DOCTYPE html>
+
+<html>
+    <head>
+        <link rel='stylesheet' href='/stylesheets/modal.css' />
+        <meta charset="UTF-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+    </head>
+    
+    <body> 
+        <!-- SingUp Modal(회원가입 모달은 외부영역 클릭으로 닫기 기능 방지) -->
+        <div class="modal fade" id="signup-modal" tabindex="-1" role="dialog" aria-labelledby="signupModalLabel" aria-hidden="true" data-backdrop="static" data-keyboard="false">
+            <div class="modal-dialog">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <a id="signup-close" type="button" class="close" data-dismiss="modal" aria-hidden="true"><i class="fas fa-times-circle"></i></a>
+                        <h4 class="modal-title" id="signupModalLabel">회원가입</h4>
+                        </div>
+                    <div class="modal-body">
+                                            
+                        <div class="form-group form-dropdown-input form-dropdown-center">
+                            <label class="label-color">프로필사진</label> 
+                            <div id="filebox" class="filebox">
+                                <label for="getfile">이미지 파일 선택</label>
+                                <input type="file" id="getfile" accept="image/*">
+                            </div>
+                            <img id="preview" width="150" height="150" class="img-circle" src="/images/icon-avatar.png" alt="">
+                        </div>
+                        <div class="form-group" id="input-nickname-signup">
+                            <label class="label-color" for="exampleInputPassword1" id="label-nickname-signup">닉네임</label> 
+                            <i class="fas fa-user-alt"></i>
+                            <input type="text" class="form-control" id="nickname-signup" />
+                        </div>
+                        <div class="form-group"  id="input-id-signup">
+                            <label class="label-color" for="exampleInputEmail1" id="label-id-signup">이메일</label> 
+                            <i class="fas fa-envelope-open"></i>
+                            <input type="email" class="form-control" id="userid-signup"/>
+                        </div>
+                        <div class="form-group" id="input-password-signup">
+                            <label class="label-color" for="exampleInputPassword1" id="label-password-signup">비밀번호</label> 
+                            <i class="fas fa-lock"></i>
+                            <input type="password" class="form-control" id="userpassword-signup" />
+                        </div>
+                        <div class="form-group" id="btn-signup">
+                            <button type="submit" id="signup-submit" class="btn btn-info btn-block"><span>가입</span></button>                                      
+                        </div>
+                        
+                    </div>
+                    <div  style="text-align:center" class="modal-footer">
+                        <a type="button" class="btn btn-default">Q & A <br> wnsvy223@naver.com <br>curiouswalker@naver.com </a>               
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Edit Profile Modal -->
+        <div class="modal fade" id="edit-modal" tabindex="-1" role="dialog" aria-labelledby="editModalLabel" aria-hidden="true">
+            <div class="modal-dialog">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <a type="button" class="close" data-dismiss="modal" aria-hidden="true"><i class="fas fa-times-circle"></i></a>
+                        <h4 class="modal-title" id="editModalLabel">프로필 편집</h4>
+                        </div>
+                    <div class="modal-body">
+                                            
+                        <div class="form-group form-dropdown-input form-dropdown-center">
+                            <label class="label-color">프로필사진</label> 
+                            <div id="filebox" class="filebox">
+                                <label for="getfileEdit">이미지 파일 선택</label>
+                                <input type="file" id="getfileEdit" accept="image/*">
+                            </div>
+                            <img id="previewEdit" width="150" height="150" class="img-circle img-shadow divide-top" src="/images/icon-avatar.png" alt="">
+                        </div>
+                        <div class="form-group form-dropdown-input">
+                            <label class="label-color" for="exampleInputPassword1">닉네임</label> 
+                            <input type="text" class="form-control" id="nickname-edit" />
+                        </div>
+                        <div class="form-group form-dropdown-input">
+                            <label class="label-color" for="exampleInputEmail1">아이디(이메일)</label>  
+                            <input type="text" class="form-control" id="userid-edit" />
+                        </div>
+                        <div class="form-group form-dropdown-input">
+                            <button type="submit" id="edit-submit" class="btn btn-info btn-block"><i class="glyphicon glyphicon-ok"></i> 수정 </button>                                      
+                        </div>
+                        <form>
+                            <div class='form-group signout-link'>
+                                <span class='form-inline'>TTAALLKK를 더 이상 이용하고 싶지 않다면</span>
+                                <a class='form-inline' type='submit' id='delete-auth' >회원탈퇴<i class="fas fa-caret-right"></i></a>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!--Delete Modal-->
+        <div class="modal fade" id="deleteModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+            <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalLabel">게시글 삭제</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+                </div>
+                <div class="modal-body">
+                선택한 게시물을 삭제 하시겠습니까?
+                </div>
+                <div class="modal-footer">
+                    <button id = "delete-post" type="button" class="btn btn-danger">삭제</button>
+                    <button type="button" class="btn btn-info" data-dismiss="modal">취소</button>
+                </div>
+            </div>
+            </div>
+        </div>
+
+        <!--Delete Modal anonymous-->
+        <div class="modal fade" id="deleteModalAnonymous" role="dialog" aria-hidden="true">
+            <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                <h5 class="modal-title">게시글 삭제(익명유저)</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+                </div>
+                <div class="modal-body">
+                선택한 게시물을 삭제 하시겠습니까?
+                </div>
+                <div class="modal-footer">
+                    <button id = "delete-post-anonymous" type="button" class="btn btn-danger">삭제</button>
+                    <button type="button" class="btn btn-info" data-dismiss="modal">취소</button>
+                </div>
+            </div>
+            </div>
+        </div>
+
+        <!--join talk board input anonymous nickname modal-->
+        <div class="modal fade" id="talkboard-anonymous-modal" role="dialog" aria-hidden="true">
+            <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                <h5 class="modal-title">대화방 참가</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+                </div>
+                <div class="modal-body form-group form-dropdown-input">
+                    <label class="label-color" for="exampleInputPassword1">닉네임을 입력하세요.</label> 
+                    <input type="text" id='input-talkboard-id' class="form-control"/>     
+                </div>
+                <div class="modal-footer">
+                    <button id="submit-talkboard-id" type="button" class="btn btn-danger">확인</button>
+                    <button id="cancel-talkboard-id" type="button" class="btn btn-info" data-dismiss="modal">취소</button>
+                </div>
+            </div>
+            </div>
+        </div>
+
+        <!--alert modal-->
+        <div class="modal fade" id="alert-input-id" role="dialog" aria-hidden="true">
+            <div class="modal-dialog" role="document">
+                <div class="modal-content">
+                    <div class="modal-header text-center">  
+                        <h5 class="modal-title">닉네임을 입력하세요.</h5>
+                        <button type="button" class="btn btn-danger divide-top" data-dismiss="modal">확인</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!--auth delete modal-->
+        <div class="modal fade" id="modal-auth-delete-check-password" role="dialog" aria-hidden="true">
+            <div class="modal-dialog modal-sm" role="document">
+                <div class="modal-content">
+                    <div class="modal-header text-center">
+                        <h5 id='modal-auth-delete-label' class="modal-title">회원 탈퇴를 위해 비밀번호를 입력하세요.</h5>
+                        <input type="password" id='check-password' class="form-control text-center"/>   
+                        <button type="button" class="btn btn-danger divide-top" id='confirm-auth-delete'>확인</button>
+                        <button type="button" class="btn btn-danger divide-top" id='confirm-auth-delete-cancel' data-dismiss="modal">취소</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!--invite modal-->
+        <div class="modal fade" id="modal-invite" role="dialog" aria-hidden="true">
+            <div class="modal-dialog" role="document">
+                <div class="modal-content">
+                    <div id="modal-invite-title-div" class="modal-header text-center">  
+                        <img id="modal-invite-img" width="50" height="50" class="img-circle">
+                        <h id="modal-invite-title" class="modal-title"></h>   
+                    </div>
+                    <div class="modal-body">
+                        <h5 id="modal-invite-body" class="modal-title text-center"></h5>
+                    </div>
+                    <div class="modal-footer">
+                        <button id="modal-invite-ok" type="button" class="btn btn-danger divide-top" data-dismiss="modal">확인</button>
+                        <button id="modal-invite-cancel" type="button" class="btn btn-danger divide-top" data-dismiss="modal">취소</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- edit reply modal-->
+        <div class="modal fade" id="modal-edit-reply-password" role="dialog" aria-hidden="true">
+            <div class="modal-dialog modal-sm" role="document">
+                <div class="modal-content">
+                    <div class="modal-header text-center">
+                        <h5 class="modal-title">비밀번호를 입력하세요.</h5>
+                        <input type="password" id='check-reply-password' class="form-control text-center"/>   
+                        <button type="button" class="btn btn-danger divide-top" id='confirm-reply-password'>확인</button>
+                        <button type="button" class="btn btn-danger divide-top" data-dismiss="modal">취소</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!--kick modal-->
+        <div class="modal fade" id="kick-modal" role="dialog" aria-hidden="true">
+            <div class="modal-dialog modal-sm" role="document">
+                <div class="modal-content">
+                    <div class="modal-body text-center">  
+                        <img width="50" height="50" src='/images/icon-owner.png'>
+                        <h5 class="modal-title">방장에 의해 강제 퇴장 되었습니다.</h5>
+                        <button type="button" class="btn btn-danger divide-top" data-dismiss="modal">확인</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- remove friend confirm modal-->
+        <div class="modal fade" id="modal-remove-friend-confirm" role="dialog" aria-hidden="true">
+            <div class="modal-dialog modal-sm" role="document">
+                <div class="modal-content">
+                    <div class="modal-header text-center">
+                        <h5 class="modal-title">정말 친구를 삭제 하시겠습니까?</h5>
+                        <button type="button" class="btn btn-danger divide-top" id='confirm-remove-friend'>삭제</button>
+                        <button type="button" class="btn btn-danger divide-top" data-dismiss="modal">취소</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <!-- custom modal small -->
+        <div class="modal fade custom-modal" role="dialog" aria-hidden="true">
+            <div class="modal-dialog modal-sm" role="document">
+                <div class="modal-content">
+                    <div class="modal-header text-center">
+                        <h5 class="modal-title"></h5>
+                        <button type="button" class="btn btn-danger divide-top" data-dismiss="modal">확인</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <script>
+            // 회원가입 모달 닫힐 시 엘리먼트 상태값들 초기화.
+            $("#signup-modal").on('hidden.bs.modal', function () {               
+                $("#signup-submit").find('span').text('가입');
+                $("#getfile").val('');
+                $("#preview").attr('src', '/images/icon-avatar.png');
+                $("#userid-signup").val('');
+                $("#userpassword-signup").val('');
+                $("#nickname-signup").val('');
+                $("#label-nickname-signup").text("닉네임");
+                $("#label-id-signup").text("이메일");
+                $("#label-password-signup").text("비밀번호");
+                $("#input-id-signup").removeClass('has-error'); 
+                $("#input-nickname-signup").removeClass('has-error'); 
+                $("#input-password-signup").removeClass('has-error');   
+                $("#verify-form").remove();
+                $("#signup-submit").css('display', 'block');
+                $("#nickname-signup").prop('disabled', false);
+                $("#userid-signup").prop('disabled', false);
+                $("#userpassword-signup").prop('disabled', false);
+                $("#loader").remove();
+            });
+        </script>
+    </body>
+</html>

@@ -1,0 +1,67 @@
+/* Custom Modal (implement bootstrap 3 modal) */
+.custom-modal {
+	text-align: center;
+	padding: 0!important;
+  }
+  
+.custom-modal:before {
+	content: '';
+	display: inline-block;
+	height: 100%;
+	vertical-align: middle;
+	margin-right: -4px;
+  }
+  
+.custom-modal > .modal-dialog {
+	display: inline-block;
+	text-align: left;
+	vertical-align: middle;
+}
+
+/* Signup Modal */
+#signup-modal button{
+	border-radius:30px;
+	width: 50%;
+	margin: 0 auto;
+}
+
+#signup-modal input {
+	border-radius:30px;
+	margin: 0 auto;
+	padding-left: 60px;
+	padding-right: 40px;
+}
+
+#signup-modal .form-group {
+	position: relative;
+	margin: 0 auto;
+	margin-bottom: 20px;
+	width: 80%;
+}
+
+@media (max-width: 768px) {
+	#signup-modal .form-group {
+		width: 90%;
+	}
+}
+
+#signup-modal .form-group i {
+	font-size: 12px;
+	color: rgb(173, 173, 173);
+	position: absolute;
+	top: 36px;
+	left: 20px;
+}
+
+#verify-form div {
+	display: flex;
+}
+
+#verify-form div .btn-verify {
+	width: 45%;
+	margin-top: 10px;
+	color: white;
+	background-color: #b765cc;
+	border-color: #b765cc;
+}
+

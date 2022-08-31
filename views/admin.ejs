@@ -1,0 +1,204 @@
+<head>
+    <title>TTAALLKK - 관리자 페이지</title>
+    <link rel='stylesheet' href='/stylesheets/style.css' />
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link href="https://fonts.googleapis.com/css?family=Roboto|Varela+Round" rel="stylesheet">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.2.0/css/all.css">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+
+    <!--summernote css/js-->
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/summernote/0.8.8/summernote.css" rel="stylesheet">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/summernote/0.8.8/summernote.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/summernote/0.8.8/lang/summernote-ko-KR.min.js"></script>
+
+    <!--Moment-->
+    <script src="//cdnjs.cloudflare.com/ajax/libs/moment.js/2.10.3/moment.js"></script>
+
+    <!--Firebase-->
+    <script src="https://www.gstatic.com/firebasejs/7.17.1/firebase-app.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/7.17.1/firebase-auth.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/7.17.1/firebase-database.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/7.17.1/firebase-storage.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/7.17.1/firebase-messaging.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/7.17.1/firebase-analytics.js"></script>
+    <script src="/javascripts/firebase.js"></script>
+</head>
+  
+    <body> 
+        <div class="text-center">
+            <h>관리자 페이지</h>
+            <a><%=NMAIL%></a>
+            <a><%=ADMIN_EMAIL%></a>
+            <a><%=SUB_ADMIN_EMAIL%></a>
+        </div>
+
+        
+        <div class="admin-content-board">
+            <div class="text-center">
+                <label class="admin-page-func-label">공지사항 작성</label>
+            </div>
+            <div class="form-group">
+                <label for="select-baord">게시판 선택</label>
+                <select class="form-control" id="select-baord">
+                <option value="board-gta-admin">GTA 게시판</option>
+                <option value="board-free-admin">자유 게시판</option>
+                </select>
+            </div>
+            <div class="form-group">
+                <label class="" for="exampleInputPassword1">제목</label> 
+                <input type="text" class="form-control" id="admin-content-title"/>
+            </div>
+            <div class="form-group">
+                <label class="" for="exampleInputPassword1">내용</label> 
+                <div id='admin-content-summernote'></div>
+                <div class="form-group form-dropdown-input text-center">
+                    <button type="submit" id="summit-admin-content" class="btn btn-info"><span>공지사항 작성</span></button>                                      
+                </div> 
+            </div>
+        </div>
+
+
+         
+        <div class="admin-content-board">
+            <div class="text-center">
+                <label class="admin-page-func-label">사용자 DB 데이터 생성</label>
+            </div>      
+            <div class="form-group">
+                <label class="" for="exampleInputPassword1" id="label-nickname-signup">닉네임</label> 
+                <input type="text" class="form-control" id="nickname" />
+            </div>
+            <div class="form-group" >
+                <label class="" for="exampleInputEmail1" id="label-id-signup">아이디(이메일)</label> 
+                <input type="email" class="form-control" id="email"/>
+            </div>
+            <div class="form-group">
+                <label class="" for="exampleInputPassword1" id="label-password-signup">UID</label> 
+                <input type="text" class="form-control" id="uid" />
+            </div>
+            <div class="form-group" >
+                <label class="" for="exampleInputEmail1" id="label-id-signup">프로필 URL</label> 
+                <input type="email" class="form-control" id="profileUrl"/>
+            </div>
+            <div class="form-group form-dropdown-input text-center">
+                <button type="submit" id="creat-user-data" class="btn btn-info"><span>생성</span></button>                                      
+            </div> 
+        </div>        
+
+
+        <script>
+             firebase.auth().onAuthStateChanged(function(user) {
+                if(user){  
+                    firebase.auth().currentUser.getIdTokenResult()
+                    .then((idTokenResult) => {
+                        if(!!idTokenResult.claims.admin) {
+                            $("#creat-user-data").off('click').on('click', function(event){
+                                var email = $("#email").val();
+                                var nickname = $("#nickname").val();
+                                var uid = $("#uid").val();
+                                if(!email){
+                                    alert('이메일을 입력하세요.');
+                                    return false;
+                                }else if(!nickname){
+                                    alert('닉네임을 입력하세요.');
+                                    return false;
+                                }else if(!uid){
+                                    alert('UID를 입력하세요.');
+                                    return false;
+                                }else{
+                                    var data = {
+                                        email: email,
+                                        nickname: nickname,
+                                        uid: uid,
+                                        profileUrl: $("#profileUrl").val()
+                                    }
+                                    creatUserData(data);
+                                }         
+                            });
+                        }
+                    })
+                    .catch((error) => {
+                        console.log(error);
+                    });  
+                }
+            });  
+            
+            function creatUserData(data){
+                firebase.database().ref('users').child(data.uid).set({
+                    uid: data.uid,
+                    email: data.email,
+                    profileUrl: data.profileUrl,
+                    userNickname: data.nickname
+                }, function(error){
+                    if (error) {
+                        console.log("관리자 권한 신규 유저정보 세팅 실패 : " + error);
+                    } else {
+                        console.log("관리자 권한 신규 유저정보 세팅 성공"); 
+                    }
+                });
+            }
+
+            $("#admin-content-summernote").summernote({
+                lang: 'ko-KR',               // set language
+                height: 500,                 // set editor height
+                minHeight: null,             // set minimum height of editor
+                maxHeight: null,             // set maximum height of editor
+                focus: true                  // set focus to editable area after initializing summernote
+            });
+
+            $("#summit-admin-content").off('click').on('click',function() {
+                var board_category = $("#select-baord").val();
+                var title = $("#admin-content-title").val(); 
+                var textIsEmpty = $("#admin-content-summernote").summernote('isEmpty'); 
+                if(!title){
+                    alert('제목을 입력하세요.');
+                    return false;
+                }else if(textIsEmpty){
+                    alert('내용을 입력하세요.');
+                    return false;
+                }else{
+                    switch(board_category){
+                    case "board-gta-admin":
+                        var ref = firebase.database().ref('admin').child('board-gta-notice');
+                        setAdminNotice(ref);
+                        break;
+                    case "board-free-admin":
+                        var ref = firebase.database().ref('admin').child('board-free-notice');
+                        setAdminNotice(ref);
+                        break;
+                    default:
+                    }
+                }                
+            });
+
+            function setAdminNotice(ref, content){
+                firebase.auth().currentUser.getIdTokenResult()
+                    .then((idTokenResult) => {
+                        if(!!idTokenResult.claims.admin) {
+                            var content = {
+                                title: $("#admin-content-title").val(),
+                                text: $("#admin-content-summernote").summernote('code'),
+                                timestamp: moment().format('YYYY-MM-DD HH:mm:ss'),
+                                name: firebase.auth().currentUser.displayName,
+                                profileImg: idTokenResult.claims.picture
+                            }
+                            ref.set(content).then(function(){
+                                alert('관리자 공지사항 작성 성공');
+                            }).catch(function(error){
+                                alert('관리자 공지사항 작성 실패' + error);
+                            });
+                        }
+                    })
+                    .catch((error) => {
+                        console.log(error);
+                    });        
+            }
+
+        </script>
+    </body>
+</html>
